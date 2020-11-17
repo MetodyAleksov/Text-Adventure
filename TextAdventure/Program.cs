@@ -31,11 +31,29 @@ namespace TextAdventure
         {
             Console.Clear();
             //Place Holders
-            Console.WriteLine("Welcome to Endere the continent's biggest city, at least as far as you know.");
+            Console.WriteLine("Welcome to Eldere the continent's biggest city, at least as far as you know.");
             Console.WriteLine();
             Console.WriteLine("Did you come here to find wealth or perhaps a meaning to your otherwise meaningless life.");
             Console.WriteLine();
 
+            //Skills
+
+            //Adding skills and abilities based on the class and atributes
+
+            Console.WriteLine();
+            Console.WriteLine("So then would you mind telling me what skills you posses.");
+
+            //returns the player char for easier use in the Main method
+            PlayerChar player = AtributeDist();
+
+            return player;
+        }
+        static void CombatScene()
+        {
+
+        }
+        static List<string> ClassSelect()
+        {
             //Place holder classes
             Console.WriteLine("What is your name lonely traveler?");
             string name = Console.ReadLine();
@@ -46,7 +64,7 @@ namespace TextAdventure
             //Just put them somewhere here. Make sure to check the way they look first tho
             //warrior klass 
             Console.WriteLine();
-            Console.WriteLine("A) Were you a mercenery for hire.Burning towns protecting people.");
+            Console.WriteLine("A) Were you a mercenery for hire.");
             Console.WriteLine();
             //Draw them after the introduction not before 
             Console.WriteLine("     ^^^^^^^^^^^ ");
@@ -101,6 +119,18 @@ namespace TextAdventure
                     Console.WriteLine("Invalid Class");
                 }
             }
+            List<string> detials = new List<string>();
+            detials.Add(name);
+            detials.Add(klass);
+            return detials;
+        }
+        static PlayerChar AtributeDist()
+        {
+            //Invoking classselect
+            List<string> details = ClassSelect();
+            string name = details[0];
+            string klass = details[1];
+
             //Default attributes for playerChar some might be augmented because of the way the calcs work
             double health = 10;
             double str = 10;
@@ -115,7 +145,7 @@ namespace TextAdventure
             atributes.Add("agility", agi);
             atributes.Add("intellect", intellect);
             atributes.Add("magika", magika + Math.Round(intellect / 10));
-            atributes.Add("dogde", 10 + Math.Round(agi / 10));
+            atributes.Add("dogde", 1 + Math.Round(agi / 10));
             atributes.Add("armor", 10 + atributes["dogde"]);
 
             //Taking all atributes for the creator leaving the person to add some more later on
@@ -128,84 +158,149 @@ namespace TextAdventure
             {
                 //Help for the creator wizard
                 Console.Clear();
+                Console.WriteLine($"Type back to return to previous step.");
+                Console.WriteLine();
                 Console.WriteLine($"Very well. So you were a {klass} not suprising considering the way you look.");
                 Console.WriteLine();
                 Console.WriteLine("What were you good at exactly.");
                 Console.WriteLine();
-                Console.WriteLine($"Current stats:\nHealth -> {atributes["health"] + Math.Round(atributes["strenght"] / 10)}" +
+                Console.WriteLine($"{player.Name}'s stats:" +
                     $"\nStrenght -> {atributes["strenght"]}" +
                     $"\nAgility -> {atributes["agility"]}" +
-                    $"\nDogde -> {1 + Math.Round(atributes["agility"] / 10)}" +
                     $"\nIntellect -> {atributes["intellect"]}" +
                     $"\nMagika -> {atributes["magika"] + Math.Round(atributes["intellect"] / 10)}");
+                Console.WriteLine();
+                Console.WriteLine("Unaugmentable stats:");
+                Console.WriteLine($"Health-> {atributes["health"] + Math.Round(atributes["strenght"] / 10)} -> health = 10 + str / 10 rounded");
+                Console.WriteLine($"Dogde -> {atributes["dogde"]} -> dogde = 1 + agi / 10 rounded");
+                Console.WriteLine($"Armor -> {atributes["armor"] + atributes["dogde"]} -> armor = AV(Armor value from items) + dodge");
                 Console.WriteLine();
                 Console.WriteLine($"Left augment points: {pointsToAdd}");
                 Console.WriteLine();
                 Console.WriteLine($"How many do you want to add or remove from an atribute");
-                Console.WriteLine("Atribute: Points: Add\\Remove: ");
+                Console.WriteLine("Atribute: Add\\Remove: Points:");
+                Console.WriteLine("eg. intellect add 2");
 
                 //Saving the input in two vars for easier use later on
                 string[] input2 = Console.ReadLine()
                     .Split(" ", StringSplitOptions.RemoveEmptyEntries)
                     .ToArray();
-                string atribute = input2[0];
-                int pointsToAddToAtrb = int.Parse(input2[1]);
-                string operation = input2[2];
+                string atribute = String.Empty;
+                int pointsToAddToAtrb = 0;
+                string operation = String.Empty;
 
-                //Actual code for the wizard
-                if (operation.ToLower() == "add")
+                //Returning to the previous state of the game which in this case is Class Select and player name
+                if (input2[0].ToLower() == "back")
                 {
-                    if (atributes.ContainsKey(atribute.ToLower()))
-                    {
-                        if (atributes[atribute] + pointsToAddToAtrb > 20)
-                        {
-                            Console.WriteLine("Atributes cannot be higher than 20.");
-                        }
-                        else
-                        {
-                            atributes[atribute] += pointsToAddToAtrb;
-                            pointsToAdd -= pointsToAddToAtrb;
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid atribute");
-                    }
+                    Console.Clear();
+                    List<string> playerSelect = ClassSelect();
+                    player.Name = playerSelect[0];
+                    player.Klass = playerSelect[1];
                 }
-                else if (operation.ToLower() == "remove")
+                else if (input2.Length != 3)
                 {
-                    if (atributes.ContainsKey(atribute.ToLower()))
-                    {
-                        if (atributes[atribute] - pointsToAddToAtrb <= 0)
-                        {
-                            Console.WriteLine("Atributes cannot be less than 1.");
-                        }
-                        else
-                        {
-                            atributes[atribute] -= pointsToAddToAtrb;
-                            pointsToAdd += pointsToAddToAtrb;
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid atribute");
-                    }
+                    Console.WriteLine("Error Invalid Command");
                 }
                 else
                 {
-                    Console.WriteLine("Invalid Operator");
-                }
-                if (pointsToAdd < 0)
-                {
-                    Console.WriteLine("You need to have spend too many atribute points.");
+                    if (!atributes.ContainsKey(input2[0]))
+                    {
+                        Console.WriteLine("Invalid atribute");
+                    }
+                    else
+                    {
+                        atribute = input2[0];
+                    }
+                    pointsToAddToAtrb = int.Parse(input2[2]);
+                    if (input2[1] != "add")
+                    {
+                        if (input2[1] != "remove")
+                        {
+                            Console.WriteLine("Invalid command");
+                        }
+                        else
+                        {
+                            operation = input2[1];
+                        }
+                    }
+                    else
+                    {
+                        operation = input2[1];
+                    }
+
+
+                    //Actual code for the wizard
+                    if (operation.ToLower() == "add")
+                    {
+                        if (atributes.ContainsKey(atribute.ToLower()) && atribute.ToLower() != "dodge" && atribute.ToLower() != "health")
+                        {
+                            if (atributes[atribute] + pointsToAddToAtrb > 20)
+                            {
+                                Console.WriteLine("Atributes cannot be higher than 20.");
+                                Console.WriteLine();
+                                Console.WriteLine("Press any key to continue...");
+                                Console.ReadKey();
+                            }
+                            else
+                            {
+                                atributes[atribute] += pointsToAddToAtrb;
+                                pointsToAdd -= pointsToAddToAtrb;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid atribute");
+                            Console.WriteLine();
+                            Console.WriteLine("Press any key to continue...");
+                            Console.ReadKey();
+                        }
+                    }
+                    else if (operation.ToLower() == "remove")
+                    {
+                        if (atributes.ContainsKey(atribute.ToLower()) && atribute.ToLower() != "dodge" && atribute.ToLower() != "health")
+                        {
+                            if (atributes[atribute] - pointsToAddToAtrb <= 0)
+                            {
+                                Console.WriteLine("Atributes cannot be less than 1.");
+                                Console.WriteLine();
+                                Console.WriteLine("Press any key to continue...");
+                                Console.ReadKey();
+                            }
+                            else
+                            {
+                                atributes[atribute] -= pointsToAddToAtrb;
+                                pointsToAdd += pointsToAddToAtrb;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid atribute");
+                            Console.WriteLine();
+                            Console.WriteLine("Press any key to continue...");
+                            Console.ReadKey();
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid Operator");
+                        Console.WriteLine();
+                        Console.WriteLine("Press any key to continue...");
+                        Console.ReadKey();
+                    }
+                    if (pointsToAdd < 0)
+                    {
+                        Console.WriteLine($"You have spend too many atribute points. Remove {Math.Abs(pointsToAdd)}");
+                        Console.WriteLine();
+                        Console.WriteLine("Press any key to continue...");
+                        Console.ReadKey();
+                    }
+                    else if (pointsToAdd == 0)
+                    {
+                        break;
+                    }
                 }
             }
-            //Adding skills and abilities based on the class and atributes
-
-            Console.WriteLine();
-            Console.WriteLine("So then would you mind telling me what skills you posses.");
-
-            //returns the player char for easier use in the Main method
+            player.Atributes = atributes;
             return player;
         }
     }
