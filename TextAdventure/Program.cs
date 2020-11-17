@@ -44,7 +44,10 @@ namespace TextAdventure
             Console.WriteLine("So then would you mind telling me what skills you posses.");
 
             //returns the player char for easier use in the Main method
-            PlayerChar player = AtributeDist();
+            string name = NameGen();
+            PlayerChar player = AtributeDist(name);
+
+            //
 
             return player;
         }
@@ -54,55 +57,55 @@ namespace TextAdventure
         }
         static List<string> ClassSelect()
         {
-            //Place holder classes
-            Console.WriteLine("What is your name lonely traveler?");
-            string name = Console.ReadLine();
+            string name = String.Empty;
             string klass = String.Empty;
-            Console.WriteLine();
-            Console.Clear();
-            Console.WriteLine("What did you do before coming here");
-            //Just put them somewhere here. Make sure to check the way they look first tho
-            //warrior klass 
-            Console.WriteLine();
-            Console.WriteLine("A) Were you a mercenery for hire.");
-            Console.WriteLine();
-            //Draw them after the introduction not before 
-            Console.WriteLine("     ^^^^^^^^^^^ ");
-            Console.WriteLine(" <//===========\\\\>");
-            Console.WriteLine("<//   _      _  \\\\>");
-            Console.WriteLine("<||  / \\ .. / \\  ||");
-            Console.WriteLine("<||  )  (  )  (  ||>");
-            Console.WriteLine("<||  \\ / || \\ /  ||> ");
-            Console.WriteLine("<||   ^  ||  ^   ||>");
-            Console.WriteLine("<||      ||      ||>");
-            Console.WriteLine("<||      ||      ||>");
-            Console.WriteLine("<||      ||      ||>");
-            Console.WriteLine("<||      ()      ||>");
-            Console.WriteLine("<\\\\             //>");
-            Console.WriteLine(" <\\\\===========//>");
-            Console.WriteLine("    vvvvvvvvvvv");
-            Console.WriteLine();
-            //sourcerer klass 
-            //cw tab tab e shortcut ako taka ti e bavno
-            Console.WriteLine("B) Or perhaps you studied magic in a local college.");
-            Console.WriteLine("");
-            Console.WriteLine(" *//===========\\\\*");
-            Console.WriteLine("*//      /\\     \\\\*");
-            Console.WriteLine("*||   /\\//\\\\/\\   ||* ");
-            Console.WriteLine("*||  /// /\\ \\\\\\  ||* ");
-            Console.WriteLine("*|| ||| (\\/) ||| ||*");
-            Console.WriteLine("*|| ||| |**| ||| ||*");
-            Console.WriteLine("*|| ||| \\\\// ||| ||*");
-            Console.WriteLine("*|| |||  ||  ||| ||*");
-            Console.WriteLine("*||  \\\\\\_||_///  ||*");
-            Console.WriteLine("*||      ||      ||*");
-            Console.WriteLine("*\\\\      ||     //*");
-            Console.WriteLine(" *\\===========//*");
-            Console.WriteLine("    ***********");
-            Console.WriteLine();
 
             while (true)
             {
+                Console.Clear();
+                Console.WriteLine("Type back to return to previous step.");
+                Console.WriteLine();
+                Console.WriteLine("What did you do before coming here");
+                //Just put them somewhere here. Make sure to check the way they look first tho
+                //warrior klass 
+                Console.WriteLine();
+                Console.WriteLine("A) Were you a mercenery for hire.");
+                Console.WriteLine();
+                //Draw them after the introduction not before 
+                Console.WriteLine("     ^^^^^^^^^^^ ");
+                Console.WriteLine(" <//===========\\\\>");
+                Console.WriteLine("<//   _      _  \\\\>");
+                Console.WriteLine("<||  / \\ .. / \\  ||");
+                Console.WriteLine("<||  )  (  )  (  ||>");
+                Console.WriteLine("<||  \\ / || \\ /  ||> ");
+                Console.WriteLine("<||   ^  ||  ^   ||>");
+                Console.WriteLine("<||      ||      ||>");
+                Console.WriteLine("<||      ||      ||>");
+                Console.WriteLine("<||      ||      ||>");
+                Console.WriteLine("<||      ()      ||>");
+                Console.WriteLine("<\\\\             //>");
+                Console.WriteLine(" <\\\\===========//>");
+                Console.WriteLine("    vvvvvvvvvvv");
+                Console.WriteLine();
+                //sourcerer klass 
+                //cw tab tab e shortcut ako taka ti e bavno
+                Console.WriteLine("B) Or perhaps you studied magic in a local college.");
+                Console.WriteLine("");
+                Console.WriteLine(" *//===========\\\\*");
+                Console.WriteLine("*//      /\\     \\\\*");
+                Console.WriteLine("*||   /\\//\\\\/\\   ||* ");
+                Console.WriteLine("*||  /// /\\ \\\\\\  ||* ");
+                Console.WriteLine("*|| ||| (\\/) ||| ||*");
+                Console.WriteLine("*|| ||| |**| ||| ||*");
+                Console.WriteLine("*|| ||| \\\\// ||| ||*");
+                Console.WriteLine("*|| |||  ||  ||| ||*");
+                Console.WriteLine("*||  \\\\\\_||_///  ||*");
+                Console.WriteLine("*||      ||      ||*");
+                Console.WriteLine("*\\\\      ||     //*");
+                Console.WriteLine(" *\\===========//*");
+                Console.WriteLine("    ***********");
+                Console.WriteLine();
+
                 string classSel = Console.ReadLine().ToLower();
                 if (classSel == "a)" || classSel == "a")
                 {
@@ -114,22 +117,34 @@ namespace TextAdventure
                     klass = "Sorcerer";
                     break;
                 }
+                else if (classSel == "back")
+                {
+                    Console.Clear();
+                    name = NameGen();
+                }
                 else
                 {
                     Console.WriteLine("Invalid Class");
                 }
             }
-            List<string> detials = new List<string>();
-            detials.Add(name);
-            detials.Add(klass);
-            return detials;
+            List<string> details = new List<string>();
+            details.Add(klass);
+            if (name != String.Empty)
+            {
+                details.Add(name);
+            }
+            return details;
         }
-        static PlayerChar AtributeDist()
+        static PlayerChar AtributeDist(string name1)
         {
             //Invoking classselect
             List<string> details = ClassSelect();
-            string name = details[0];
-            string klass = details[1];
+            string klass = details[0];
+            string name = name1;
+            if (details.Count == 2)
+            {
+                name = details[1];
+            }
 
             //Default attributes for playerChar some might be augmented because of the way the calcs work
             double health = 10;
@@ -188,7 +203,7 @@ namespace TextAdventure
                 string atribute = String.Empty;
                 int pointsToAddToAtrb = 0;
                 string operation = String.Empty;
-
+                
                 //Returning to the previous state of the game which in this case is Class Select and player name
                 if (input2[0].ToLower() == "back")
                 {
@@ -301,6 +316,21 @@ namespace TextAdventure
                 }
             }
             player.Atributes = atributes;
+            return player;
+        }
+        static string NameGen()
+        {
+            //Place holder classes
+            Console.WriteLine("What is your name lonely traveler?");
+            string name = Console.ReadLine();
+            Console.WriteLine();
+
+            return name;
+        }
+        static PlayerChar SkillDist(PlayerChar player)
+        {
+
+
             return player;
         }
     }
