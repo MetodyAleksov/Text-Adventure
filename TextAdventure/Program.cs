@@ -27,6 +27,8 @@ namespace TextAdventure
             PlayerChar player = CharacterCreator();
 
         }
+
+        //Overall char creation method returns PlayerChar class
         static PlayerChar CharacterCreator()
         {
             Console.Clear();
@@ -36,115 +38,234 @@ namespace TextAdventure
             Console.WriteLine("Did you come here to find wealth or perhaps a meaning to your otherwise meaningless life.");
             Console.WriteLine();
 
-            //Skills
-
             //Adding skills and abilities based on the class and atributes
-
-            Console.WriteLine();
-            Console.WriteLine("So then would you mind telling me what skills you posses.");
+            
 
             //returns the player char for easier use in the Main method
             string name = NameGen();
-            PlayerChar player = AtributeDist(name);
+            string background = BackGround();
+            PlayerChar player = AtributeDist(name, background);
 
             //
 
             return player;
         }
-        static void CombatScene()
-        {
 
-        }
-        static List<string> ClassSelect()
+        //Submethods for the char creation
+        static string BackGround()
         {
-            string name = String.Empty;
-            string klass = String.Empty;
-
+            string background = String.Empty;
             while (true)
             {
-                Console.Clear();
-                Console.WriteLine("Type back to return to previous step.");
-                Console.WriteLine();
-                Console.WriteLine("What did you do before coming here");
-                //Just put them somewhere here. Make sure to check the way they look first tho
-                //warrior klass 
-                Console.WriteLine();
-                Console.WriteLine("A) Were you a mercenery for hire.");
-                Console.WriteLine();
-                //Draw them after the introduction not before 
-                Console.WriteLine("     ^^^^^^^^^^^ ");
-                Console.WriteLine(" <//===========\\\\>");
-                Console.WriteLine("<//   _      _  \\\\>");
-                Console.WriteLine("<||  / \\ .. / \\  ||");
-                Console.WriteLine("<||  )  (  )  (  ||>");
-                Console.WriteLine("<||  \\ / || \\ /  ||> ");
-                Console.WriteLine("<||   ^  ||  ^   ||>");
-                Console.WriteLine("<||      ||      ||>");
-                Console.WriteLine("<||      ||      ||>");
-                Console.WriteLine("<||      ||      ||>");
-                Console.WriteLine("<||      ()      ||>");
-                Console.WriteLine("<\\\\             //>");
-                Console.WriteLine(" <\\\\===========//>");
-                Console.WriteLine("    vvvvvvvvvvv");
-                Console.WriteLine();
-                //sourcerer klass 
-                //cw tab tab e shortcut ako taka ti e bavno
-                Console.WriteLine("B) Or perhaps you studied magic in a local college.");
-                Console.WriteLine("");
-                Console.WriteLine(" *//===========\\\\*");
-                Console.WriteLine("*//      /\\     \\\\*");
-                Console.WriteLine("*||   /\\//\\\\/\\   ||* ");
-                Console.WriteLine("*||  /// /\\ \\\\\\  ||* ");
-                Console.WriteLine("*|| ||| (\\/) ||| ||*");
-                Console.WriteLine("*|| ||| |**| ||| ||*");
-                Console.WriteLine("*|| ||| \\\\// ||| ||*");
-                Console.WriteLine("*|| |||  ||  ||| ||*");
-                Console.WriteLine("*||  \\\\\\_||_///  ||*");
-                Console.WriteLine("*||      ||      ||*");
-                Console.WriteLine("*\\\\      ||     //*");
-                Console.WriteLine(" *\\===========//*");
-                Console.WriteLine("    ***********");
+                //PH
+                Console.WriteLine("What were you before coming here?");
                 Console.WriteLine();
 
-                string classSel = Console.ReadLine().ToLower();
-                if (classSel == "a)" || classSel == "a")
+                Console.WriteLine("1) Commoner");
+                Console.WriteLine("2) Monastic Disciple");
+                Console.WriteLine("3) Soldier");
+                Console.WriteLine("4) Grandson of the Old Lord");
+
+                string input = Console.ReadLine().ToLower();
+                string input2 = String.Empty;
+
+                if (input == "1" || input == "commoner" || input == "1)")
                 {
-                    klass = "Warrior";
-                    break;
+                    //flavour text
+                    Console.WriteLine("");
+                    Console.WriteLine("Are you satisfied? Y/N");
+                    input2 = Console.ReadLine().ToLower();
+                    if (input2 == "yes" || input2 == "y")
+                    {
+                        background = "commoner";
+                        break;
+                    }
                 }
-                else if (classSel == "b)" || classSel == "b")
+                else if (input == "2" || input == "2)" || input == "monastic disciple")
                 {
-                    klass = "Sorcerer";
-                    break;
+                    //flavour text
+                    Console.WriteLine();
+                    Console.WriteLine("Are you satisfied? Y/N");
+                    input2 = Console.ReadLine().ToLower();
+                    if (input2 == "yes" || input2 == "y")
+                    {
+                        background = "monastic disciple";
+                        break;
+                    }
                 }
-                else if (classSel == "back")
+                else if (input == "3" || input == "3)" || input == "soldier")
                 {
-                    Console.Clear();
-                    name = NameGen();
+                    //flavour text
+                    Console.WriteLine();
+                    Console.WriteLine("Are you satisfied? Y/N");
+                    input2 = Console.ReadLine().ToLower();
+                    if (input2 == "yes" || input2 == "y")
+                    {
+                        background = "soldier";
+                        break;
+                    }
                 }
-                else
+                else if (input == "4" || input == "4)" || input == "grandson of the old lord")
                 {
-                    Console.WriteLine("Invalid Class");
+                    //flavour text
+                    Console.WriteLine();
+                    Console.WriteLine("Are you satisfied? Y/N");
+                    input2 = Console.ReadLine().ToLower();
+                    if (input2 == "yes" || input2 == "y")
+                    {
+                        background = "grandson of the old lord";
+                        break;
+                    }
                 }
+
             }
+
+            return background;
+        }
+        static List<string> ClassSelect(string background)
+        {
+            string background1 = String.Empty;
+            string klass = String.Empty;
+
+                Console.Clear();
+                //Console.WriteLine();
+                //Console.WriteLine("What did you do before coming here");
+                //Just put them somewhere here. Make sure to check the way they look first tho
+                //warrior klass 
+                //Console.WriteLine();
+                //Console.WriteLine("A) Were you a mercenery for hire.");
+                //Console.WriteLine();
+                //Draw them after the introduction not before 
+                //Console.WriteLine("     ^^^^^^^^^^^ ");
+                //Console.WriteLine(" <//===========\\\\>");
+                //Console.WriteLine("<//   _      _  \\\\>");
+                //Console.WriteLine("<||  / \\ .. / \\  ||");
+                //Console.WriteLine("<||  )  (  )  (  ||>");
+                //Console.WriteLine("<||  \\ / || \\ /  ||> ");
+                //Console.WriteLine("<||   ^  ||  ^   ||>");
+                //Console.WriteLine("<||      ||      ||>");
+                //Console.WriteLine("<||      ||      ||>");
+                //Console.WriteLine("<||      ||      ||>");
+                //Console.WriteLine("<||      ()      ||>");
+                //Console.WriteLine("<\\\\             //>");
+                //Console.WriteLine(" <\\\\===========//>");
+                //Console.WriteLine("    vvvvvvvvvvv");
+                //Console.WriteLine();
+                //sourcerer klass 
+                //cw tab tab e shortcut ako taka ti e bavno
+                //Console.WriteLine("B) Or perhaps you studied magic in a local college.");
+                //Console.WriteLine("");
+                //Console.WriteLine(" *//===========\\\\*");
+                //Console.WriteLine("*//      /\\     \\\\*");
+                //Console.WriteLine("*||   /\\//\\\\/\\   ||* ");
+                //Console.WriteLine("*||  /// /\\ \\\\\\  ||* ");
+                //Console.WriteLine("*|| ||| (\\/) ||| ||*");
+                //Console.WriteLine("*|| ||| |**| ||| ||*");
+                //Console.WriteLine("*|| ||| \\\\// ||| ||*");
+                //Console.WriteLine("*|| |||  ||  ||| ||*");
+                //Console.WriteLine("*||  \\\\\\_||_///  ||*");
+                //Console.WriteLine("*||      ||      ||*");
+                //Console.WriteLine("*\\\\      ||     //*");
+                //Console.WriteLine(" *\\===========//*");
+                //Console.WriteLine("    ***********");
+                //Console.WriteLine();
+
+                //Default classes
+                Console.WriteLine("Default classes: ");
+                Console.WriteLine("1) Warrior");
+                Console.WriteLine("2) Rogue");
+                Console.WriteLine("3) Healer");
+                Console.WriteLine();
+                Console.WriteLine("Background classes: ");
+
+                //For getting special classes from backgrounds
+                if (background == "soldier")
+                {
+                    Console.WriteLine("4) Battlemaster");
+                    Console.WriteLine("5) Monstrosity Hunter");
+                }
+                else if (background == "monastery disciple")
+                {
+                    Console.WriteLine("4) Duelist");
+                    Console.WriteLine("5) Sorcerer");
+                }
+                else if (background == "grandson of the old lord")
+                {
+                    Console.WriteLine("4) Blood Wielder");
+                }
+                else if (background == "commoner")
+                {
+                    Console.WriteLine("4) Farmer");
+                }
+                Console.WriteLine();
+                string input = Console.ReadLine().ToLower();
+
+                if (input == "1" || input == "1)" || input == "warrior")
+                {
+                    //Flavour text
+                    Console.WriteLine();
+                    klass = "Warrior";
+                }
+                else if (input == "2" || input == "2)" || input == "rogue")
+                {
+                    //Flavour text
+                    Console.WriteLine();
+                    klass = "Rogue";
+                }
+                else if (input == "3" || input == "3)" || input == "healer")
+                {
+                    //Flavour text
+                    Console.WriteLine();
+                    klass = "Healer";
+                }
+                else if (background == "soldier" && (input == "4)" || input == "4" || input == "battlemaster"))
+                {
+                    //Flavour text
+                    Console.WriteLine();
+                    klass = "Mattlemaster";
+                }
+                else if (background == "soldier" && (input == "5)" || input == "5" || input == "monstrosity hunter"))
+                {
+                    //Flavour text
+                    Console.WriteLine();
+                    klass = "Monstrosity Hunter";
+                }
+                else if (background == "monastic desciple" && (input == "4)" || input == "4" || input == "duelist"))
+                {
+                    //Flavour text
+                    Console.WriteLine();
+                    klass = "Duelist";
+                }
+                else if (background == "monastic desciple" && (input == "5)" || input == "5" || input == "sorcerer"))
+                {
+                    //Flavour text
+                    Console.WriteLine();
+                    klass = "Sorcerer";
+                }
+                else if (background == "grandson of the old lord" && (input == "4)" || input == "4" || input == "blood wielder"))
+                {
+                    //Flavour text
+                    Console.WriteLine();
+                    klass = "Blood Wielder";
+                }
+                else if (background == "commoner" && (input == "4)" || input == "4" || input == "farmer"))
+                {
+                //Flavour text
+                Console.WriteLine();
+                    klass = "Farmer";
+                }
+
             List<string> details = new List<string>();
             details.Add(klass);
-            if (name != String.Empty)
-            {
-                details.Add(name);
-            }
+     
             return details;
         }
-        static PlayerChar AtributeDist(string name1)
+        static PlayerChar AtributeDist(string name1, string background)
         {
             //Invoking classselect
-            List<string> details = ClassSelect();
+            List<string> details = ClassSelect(background);
             string klass = details[0];
-            string name = name1;
-            if (details.Count == 2)
-            {
-                name = details[1];
-            }
+            
 
             //Default attributes for playerChar some might be augmented because of the way the calcs work
             double health = 10;
@@ -161,11 +282,12 @@ namespace TextAdventure
             atributes.Add("intellect", intellect);
             atributes.Add("magika", magika + Math.Round(intellect / 10));
             atributes.Add("dogde", 1 + Math.Round(agi / 10));
-            atributes.Add("armor", 10 + atributes["dogde"]);
+            atributes.Add("armor", 8 + atributes["dogde"]);
 
             //Taking all atributes for the creator leaving the person to add some more later on
             int pointsToAdd = 10;
-            PlayerChar player = new PlayerChar(name, klass, atributes);
+            PlayerChar player = new PlayerChar(name1, klass, atributes);
+            player.Background = background;
 
             //The character creator UI element and wizard
             //Assigning atributes
@@ -179,7 +301,7 @@ namespace TextAdventure
                 Console.WriteLine();
                 Console.WriteLine("What were you good at exactly.");
                 Console.WriteLine();
-                Console.WriteLine($"{player.Name}'s stats:" +
+                Console.WriteLine($"{player.Name} the {player.Background} Class: {player.Klass} Stats:" +
                     $"\nStrenght -> {atributes["strenght"]}" +
                     $"\nAgility -> {atributes["agility"]}" +
                     $"\nIntellect -> {atributes["intellect"]}" +
@@ -203,13 +325,13 @@ namespace TextAdventure
                 string atribute = String.Empty;
                 int pointsToAddToAtrb = 0;
                 string operation = String.Empty;
-                
+
                 //Returning to the previous state of the game which in this case is Class Select and player name
                 if (input2[0].ToLower() == "back")
                 {
                     Console.Clear();
-                    List<string> playerSelect = ClassSelect();
-                    player.Name = playerSelect[0];
+                    List<string> playerSelect = ClassSelect(background);
+                    player.Background = playerSelect[0];
                     player.Klass = playerSelect[1];
                 }
                 else if (input2.Length != 3)
@@ -333,6 +455,7 @@ namespace TextAdventure
 
             return player;
         }
+        //Submethods end
     }
 }
 
