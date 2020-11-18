@@ -52,6 +52,16 @@ namespace TextAdventure
         }
 
         //Submethods for the char creation
+        static string NameGen()
+        {
+            //Place holder classes
+            Console.WriteLine("What is your name lonely traveler?");
+            string name = Console.ReadLine();
+            Console.WriteLine();
+
+            return name;
+        }
+
         static string BackGround()
         {
             string background = String.Empty;
@@ -117,11 +127,16 @@ namespace TextAdventure
                         break;
                     }
                 }
+                else if (input2 == "back")
+                {
+
+                }
 
             }
 
             return background;
         }
+
         static List<string> ClassSelect(string background)
         {
             string background1 = String.Empty;
@@ -260,6 +275,7 @@ namespace TextAdventure
      
             return details;
         }
+
         static PlayerChar AtributeDist(string name1, string background)
         {
             //Invoking classselect
@@ -330,9 +346,8 @@ namespace TextAdventure
                 if (input2[0].ToLower() == "back")
                 {
                     Console.Clear();
-                    List<string> playerSelect = ClassSelect(background);
-                    player.Background = playerSelect[0];
-                    player.Klass = playerSelect[1];
+                    List<string> klasses = ClassSelect(player.Background);
+                    player.Klass = klasses[0];
                 }
                 else if (input2.Length != 3)
                 {
@@ -440,15 +455,7 @@ namespace TextAdventure
             player.Atributes = atributes;
             return player;
         }
-        static string NameGen()
-        {
-            //Place holder classes
-            Console.WriteLine("What is your name lonely traveler?");
-            string name = Console.ReadLine();
-            Console.WriteLine();
 
-            return name;
-        }
         static PlayerChar SkillDist(PlayerChar player)
         {
 
