@@ -163,7 +163,7 @@ namespace TextAdventure
                     Console.WriteLine();
                     Console.WriteLine("Are you satisfied? Y/N");
                     input2 = Console.ReadLine().ToLower();
-                    if (input2 == "yes" || input2 == "y")
+                    if (input2.ToLower() == "yes" || input2.ToLower() == "y")
                     {
                         background = "monastic disciple";
                         break;
@@ -192,11 +192,11 @@ namespace TextAdventure
                         "\n   But you’re [two generations] removed from him. Even so you would be regarded" +
                         "\nas minor [nobility] in most places, wouldn’t you? Maybe you aren’t even his" +
                         "\n[ndescendant], just a wielder of [transfused] blood from an actual son or" +
-                        "\ndaughter of his. Then… A lot would still respect you out of fear." +
+                        "\ndaughter of his. Then, a lot would still respect you out of fear." +
                         "\n   In any case, some semblance of your grandfather’s might lie within those painfully" +
                         "\nordinary veins of yours. They don’t call your kind [the Blessed] for no reason, after all.", ConsoleColor.Yellow);
                     Console.WriteLine();
-                    WriteColor("Having the blood of the powerful Old Lord (either by birth or transfusion)" +
+                    WriteColor("\nHaving the blood of the powerful Old Lord (either by birth or transfusion)" +
                         "\ncoursing through your vessels gave either gave your access to higher education" +
                         "\nor gifted you with inborn thirst for knowledge, as well as enhancing your body a bit giving you:", ConsoleColor.Cyan);
                     Console.ForegroundColor = ConsoleColor.Cyan;
@@ -292,7 +292,7 @@ namespace TextAdventure
                     Console.WriteLine("4) Battlemaster");
                     Console.WriteLine("5) Monstrosity Hunter");
                 }
-                else if (background1.ToLower() == "monastery disciple")
+                else if (background1.ToLower() == "monastic disciple")
                 {
                     Console.WriteLine("3) Healer");
                     Console.WriteLine();
@@ -346,13 +346,13 @@ namespace TextAdventure
                     Console.WriteLine();
                     klass = "Monstrosity Hunter";
                 }
-                else if (background == "monastic desciple" && (input == "4)" || input == "4" || input == "duelist"))
+                else if (background == "monastic disciple" && (input == "4)" || input == "4" || input == "duelist"))
                 {
                     //Flavour text
                     Console.WriteLine();
                     klass = "Duelist";
                 }
-                else if (background == "monastic desciple" && (input == "5)" || input == "5" || input == "sorcerer"))
+                else if (background == "monastic disciple" && (input == "5)" || input == "5" || input == "sorcerer"))
                 {
                     //Flavour text
                     Console.WriteLine();
@@ -406,6 +406,31 @@ namespace TextAdventure
             PlayerChar player = new PlayerChar(name1, klass, atributes);
             player.Background = background;
 
+            //Adding class specific bonuses to stats
+            if (player.Background.ToLower() == "commoner")
+            {
+                player.Atributes["strenght"] += 2;
+                player.Atributes["agility"] += 2;
+                player.Atributes["intellect"] -= 2;
+            }
+            else if (player.Background.ToLower() == "soldier")
+            {
+                //pc
+            }
+            else if (player.Background.ToLower() == "monastic disciple")
+            {
+                player.Atributes["strenght"] += 2;
+                player.Atributes["intellect"] += 1;
+            }
+            else if (player.Background.ToLower() == "grandson of the old lord")
+            {
+                player.Atributes["health"] += 4;
+                player.Atributes["intellect"] += 3;
+                player.Abilities = new Dictionary<string, List<string>>();
+                player.Abilities.Add("passive", new List<string>());
+                player.Abilities["passive"].Add("blood rage");
+            }
+
             //The character creator UI element and wizard
             //Assigning atributes
             while (pointsToAdd != 0)
@@ -418,16 +443,19 @@ namespace TextAdventure
                 Console.WriteLine();
                 Console.WriteLine("What were you good at exactly.");
                 Console.WriteLine();
-                Console.WriteLine($"{player.Name} the {player.Background} Class: {player.Klass} Stats:" +
-                    $"\nStrenght -> {atributes["strenght"]}" +
-                    $"\nAgility -> {atributes["agility"]}" +
-                    $"\nIntellect -> {atributes["intellect"]}" +
-                    $"\nMagika -> {atributes["magika"] + Math.Round(atributes["intellect"] / 10)}");
+                WriteColor($"{player.Name} the [{player.Background}] Class: [{player.Klass}] Stats:", ConsoleColor.Green);
+                WriteColor($"\n[Strenght] -> [{atributes["strenght"]}]", ConsoleColor.Red);
+                WriteColor($"\n[Agility] -> [{atributes["agility"]}]", ConsoleColor.DarkGreen);
+                WriteColor($"\n[Intellect] -> [{atributes["intellect"]}]", ConsoleColor.Cyan);
+                if (player.Klass.ToLower() == "sorcerer")
+                {
+                    WriteColor($"\n[Magika] -> [{atributes["magika"] + Math.Round(atributes["intellect"] / 10)}]", ConsoleColor.Magenta);
+                }
                 Console.WriteLine();
                 Console.WriteLine("Unaugmentable stats:");
-                Console.WriteLine($"Health-> {atributes["health"] + Math.Round(atributes["strenght"] / 10)} -> health = 10 + str / 10 rounded");
-                Console.WriteLine($"Dogde -> {atributes["dogde"]} -> dogde = 1 + agi / 10 rounded");
-                Console.WriteLine($"Armor -> {atributes["armor"] + atributes["dogde"]} -> armor = AV(Armor value from items) + dodge");
+                WriteColor($"[Health] -> [{atributes["health"] + Math.Round(atributes["strenght"] / 10)}] -> health = 10 + str / 10 rounded", ConsoleColor.Red);
+                WriteColor($"\n[Dogde] -> [{atributes["dogde"]}] -> [dogde] = 1 + agi / 10 rounded", ConsoleColor.DarkGreen);
+                WriteColor($"\n[Armor] -> [{atributes["armor"] + atributes["dogde"]}] -> [armor] = AV(Armor value from items) + dodge / (armor type eg. Light /1 medium /2 heavy / 4)", ConsoleColor.White);
                 Console.WriteLine();
                 Console.WriteLine($"Left augment points: {pointsToAdd}");
                 Console.WriteLine();
