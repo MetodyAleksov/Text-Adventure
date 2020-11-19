@@ -212,7 +212,7 @@ namespace TextAdventure
                     Console.ResetColor();
                     Console.WriteLine($"As well as the special class:");
                     Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.WriteLine("3) Blood Wieldee");
+                    Console.WriteLine("3) Blood Wielder");
                     Console.ResetColor();
                     Console.WriteLine();
                     Console.WriteLine("Are you satisfied? Y/N");
@@ -232,7 +232,7 @@ namespace TextAdventure
 
         static List<string> ClassSelect(string background)
         {
-            string background1 = String.Empty;
+            string background1 = background;
             string klass = String.Empty;
 
                 Console.Clear();
@@ -282,27 +282,35 @@ namespace TextAdventure
                 Console.WriteLine("Default classes: ");
                 Console.WriteLine("1) Warrior");
                 Console.WriteLine("2) Rogue");
-                Console.WriteLine("3) Healer");
-                Console.WriteLine();
-                Console.WriteLine("Background classes: ");
 
                 //For getting special classes from backgrounds
-                if (background == "soldier")
+                if (background1.ToLower() == "soldier")
                 {
+                    Console.WriteLine("3) Healer");
+                    Console.WriteLine();
+                    Console.WriteLine("Background classes: ");
                     Console.WriteLine("4) Battlemaster");
                     Console.WriteLine("5) Monstrosity Hunter");
                 }
-                else if (background == "monastery disciple")
+                else if (background1.ToLower() == "monastery disciple")
                 {
+                    Console.WriteLine("3) Healer");
+                    Console.WriteLine();
+                    Console.WriteLine("Background classes: ");
                     Console.WriteLine("4) Duelist");
                     Console.WriteLine("5) Sorcerer");
                 }
-                else if (background == "grandson of the old lord")
+                else if (background1.ToLower() == "grandson of the old lord")
                 {
+                    Console.WriteLine();
+                    Console.WriteLine("Background classes: ");
                     Console.WriteLine("4) Blood Wielder");
                 }
-                else if (background == "commoner")
+                else if (background1.ToLower() == "commoner")
                 {
+                    Console.WriteLine("3) Healer");
+                    Console.WriteLine();
+                    Console.WriteLine("Background classes: ");
                     Console.WriteLine("4) Farmer");
                 }
                 Console.WriteLine();
