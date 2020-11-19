@@ -304,7 +304,7 @@ namespace TextAdventure
                 {
                     Console.WriteLine();
                     Console.WriteLine("Background classes: ");
-                    Console.WriteLine("4) Blood Wielder");
+                    Console.WriteLine("3) Blood Wielder");
                 }
                 else if (background1.ToLower() == "commoner")
                 {
@@ -328,7 +328,7 @@ namespace TextAdventure
                     Console.WriteLine();
                     klass = "Rogue";
                 }
-                else if (input == "3" || input == "3)" || input == "healer")
+                else if ((input == "3" || input == "3)" || input == "healer") && background1.ToLower() != "grandson of the old lord")
                 {
                     //Flavour text
                     Console.WriteLine();
@@ -358,7 +358,7 @@ namespace TextAdventure
                     Console.WriteLine();
                     klass = "Sorcerer";
                 }
-                else if (background == "grandson of the old lord" && (input == "4)" || input == "4" || input == "blood wielder"))
+                else if (background == "grandson of the old lord" && (input == "3)" || input == "3" || input == "blood wielder"))
                 {
                     //Flavour text
                     Console.WriteLine();
@@ -443,7 +443,7 @@ namespace TextAdventure
                 Console.WriteLine();
                 Console.WriteLine("What were you good at exactly.");
                 Console.WriteLine();
-                WriteColor($"{player.Name} the [{player.Background}] Class: [{player.Klass}] Stats:", ConsoleColor.Green);
+                WriteColor($"{player.Name} the [{player.Background}] Class: [{player.Klass}]\nStats:", ConsoleColor.Green);
                 WriteColor($"\n[Strenght] -> [{atributes["strenght"]}]", ConsoleColor.Red);
                 WriteColor($"\n[Agility] -> [{atributes["agility"]}]", ConsoleColor.DarkGreen);
                 WriteColor($"\n[Intellect] -> [{atributes["intellect"]}]", ConsoleColor.Cyan);
