@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace TextAdventure
 {
@@ -45,7 +46,7 @@ namespace TextAdventure
             string name = NameGen();
             string background = BackGround();
             PlayerChar player = AtributeDist(name, background);
-
+            player = SkillDist(player);
             //
 
             return player;
@@ -82,7 +83,39 @@ namespace TextAdventure
                 if (input == "1" || input == "commoner" || input == "1)")
                 {
                     //flavour text
-                    Console.WriteLine("");
+                    Console.WriteLine("    Small, unimportant people move the world," +
+                        "\nbut, in all honesty, it’s hard to stick out among those uncounted thousands," +
+                        "\ncoursing through life without accomplishing much of note." +
+                        "\nAnd yet maybe it is perhaps a blessing to be one of those" +
+                        "\nthat do not shoulder heavy burdens.");
+                    Console.WriteLine("    You’re familiar with the plough, I suppose?" +
+                        "\nWith the long days on the field, spent in nurturing plants" +
+                        "\nthat grow frail and thin beneath the veiled suns?" +
+                        "\nWith the prayers at night, with the dim hopes that your crops" +
+                        "\nwon’t fail or that your wells won’t be poisoned by whatever" +
+                        "\nlurks beneath your feet?");
+                    Console.WriteLine("    Or are you an urban dweller," +
+                        "\nspending his days behind walls in the cramped streets and tight" +
+                        "\nrooms in the lower quarters? The threat of cutthroats in the dark" +
+                        "\nshould be all too well-known for you, then. Just as much as that of" +
+                        "\nbeing conscripted in the army to die against an unknown foe. Or maybe" +
+                        "\nof falling prey to a deadly disease that engulfs whole cities as it ravages" +
+                        "\nthe realm.");
+                    Console.WriteLine();
+                    Console.WriteLine("Due to your arduous hours spend doing manual labour you gain a bonus to:");
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("Health (+2)");
+                    Console.WriteLine("Agility (+2)");
+                    Console.ResetColor();
+                    Console.WriteLine();
+                    Console.WriteLine("The Commoner origin does not enable specific classes." +
+                        "\nIt gives access to the default classes:");
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("Warrior");
+                    Console.WriteLine("Rogue");
+                    Console.WriteLine("Healer");
+                    Console.ResetColor();
+
                     Console.WriteLine("Are you satisfied? Y/N");
                     input2 = Console.ReadLine().ToLower();
                     if (input2 == "yes" || input2 == "y")
@@ -94,6 +127,39 @@ namespace TextAdventure
                 else if (input == "2" || input == "2)" || input == "monastic disciple")
                 {
                     //flavour text
+                    WriteColor("    Now that’s intriguing." +
+                        " I’ve never been quite fond of the" +
+                        "\nmonks with their robes and [secret rituals].", ConsoleColor.Yellow);
+                    WriteColor("\n    It’s hard to imagine spending your youth behind closed walls, in the heart of a" +
+                        "\nwilderness so remote and inaccessible that even [monsters] rarely tread it." +
+                        "\nBut I’d wager you learned valuable things there.", ConsoleColor.Yellow);
+                    WriteColor("\n    Rumors spread about [the monasteries] among the peasantry." +
+                        "\nThat the monks can deflect arrows with their bare hands and that swords break upon hitting their bodies," +
+                        "\nwhich are as hard as corded steel.", ConsoleColor.Yellow);
+                    WriteColor(" \nBut few know about [the magic]. Pulling energy from some" +
+                        "\n[unknown plane beyond this world], your brothers can warp and twist" +
+                        "\nthe very firmaments of existence to annihilate their enemies.", ConsoleColor.Yellow);
+                    WriteColor("\n    A [monastic sorcerer] in action is a terrifying sight to behold, albeit an increasingly" +
+                        "\nrare one. They, just as the whole orders, remain far from the ordinary man’s sight, dedicated" +
+                        "\nto ancient knowledge and ready to defend their [strongholds] at any cost.", ConsoleColor.Yellow);
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    WriteColor("\n    Due to rigorous mental and physical training over the course of many years," +
+                        "\nas well as rich study of the monastic libraries, you’ve honed your mind and body adding: ", ConsoleColor.Yellow);
+                    WriteColor("\n[Intellect] +2", ConsoleColor.Cyan);
+                    WriteColor("\n[Strenght] +1", ConsoleColor.Cyan);
+                    Console.WriteLine();
+                    Console.WriteLine("You gain access to the default classes:");
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("1) Warrior");
+                    Console.WriteLine("2) Rogue");
+                    Console.WriteLine("3) Healer");
+                    Console.ResetColor();
+                    Console.WriteLine("As well as the special classes:");
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("4) Duelist");
+                    Console.WriteLine("5) Sorcerer");
+                    Console.ResetColor();
                     Console.WriteLine();
                     Console.WriteLine("Are you satisfied? Y/N");
                     input2 = Console.ReadLine().ToLower();
@@ -118,6 +184,36 @@ namespace TextAdventure
                 else if (input == "4" || input == "4)" || input == "grandson of the old lord")
                 {
                     //flavour text
+                    WriteColor("    You’ve got no extraordinary looks to you. At first glance, that is. But [the blood] that" +
+                        "\nyou carry almost makes your skin let off a dim glimmer at dusk. Some claim that only the" +
+                        "\n[Deep Beings] are as powerful as your ancestor. Others say he alone can defend us all from them." +
+                        "\nTo live for two thousand years without being dethroned… All that while being able to cure deadly" +
+                        "\ninjuries with just a drop of his blood! [The Old Lord] definitely is an enigma." +
+                        "\n   But you’re [two generations] removed from him. Even so you would be regarded" +
+                        "\nas minor [nobility] in most places, wouldn’t you? Maybe you aren’t even his" +
+                        "\n[ndescendant], just a wielder of [transfused] blood from an actual son or" +
+                        "\ndaughter of his. Then… A lot would still respect you out of fear." +
+                        "\n   In any case, some semblance of your grandfather’s might lie within those painfully" +
+                        "\nordinary veins of yours. They don’t call your kind [the Blessed] for no reason, after all.", ConsoleColor.Yellow);
+                    Console.WriteLine();
+                    WriteColor("Having the blood of the powerful Old Lord (either by birth or transfusion)" +
+                        "\ncoursing through your vessels gave either gave your access to higher education" +
+                        "\nor gifted you with inborn thirst for knowledge, as well as enhancing your body a bit giving you:", ConsoleColor.Cyan);
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("\n+4 Health");
+                    Console.WriteLine("+3 Intelligence");
+                    Console.ResetColor();
+                    WriteColor("But it also curses you with [blood rage]", ConsoleColor.Red);
+                    Console.WriteLine();
+                    Console.WriteLine("\nThe Grandson/Granddaughter of the Old Lord enables the default classes except healer:");
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("1) Warrior");
+                    Console.WriteLine("2) Rogue");
+                    Console.ResetColor();
+                    Console.WriteLine($"As well as the special class:");
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("3) Blood Wieldee");
+                    Console.ResetColor();
                     Console.WriteLine();
                     Console.WriteLine("Are you satisfied? Y/N");
                     input2 = Console.ReadLine().ToLower();
@@ -127,10 +223,7 @@ namespace TextAdventure
                         break;
                     }
                 }
-                else if (input2 == "back")
-                {
-
-                }
+                Console.Clear();
 
             }
 
@@ -463,6 +556,30 @@ namespace TextAdventure
             return player;
         }
         //Submethods end
+
+        // usage: WriteColor("This is my [message] with inline [color] changes.", ConsoleColor.Yellow);
+        static void WriteColor(string message, ConsoleColor color)
+        {
+
+            var pieces = Regex.Split(message, @"(\[[^\]]*\])");
+
+            for (int i = 0; i < pieces.Length; i++)
+            {
+                string piece = pieces[i];
+
+                if (piece.StartsWith("[") && piece.EndsWith("]"))
+                {
+                    Console.ForegroundColor = color;
+                    piece = piece.Substring(1, piece.Length - 2);
+                }
+
+                Console.Write(piece);
+                Console.ResetColor();
+
+            }
+
+
+        }
     }
 }
 
