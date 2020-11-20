@@ -104,8 +104,9 @@ namespace TextAdventure
                     Console.WriteLine();
                     Console.WriteLine("Due to your arduous hours spend doing manual labour you gain a bonus to:");
                     Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.WriteLine("Health (+2)");
-                    Console.WriteLine("Agility (+2)");
+                    Console.WriteLine("+2 Health");
+                    Console.WriteLine("+2 Agility");
+                    WriteColor("[-3 Intellect]", ConsoleColor.Red);
                     Console.ResetColor();
                     Console.WriteLine();
                     Console.WriteLine("The Commoner origin does not enable specific classes." +
@@ -172,6 +173,37 @@ namespace TextAdventure
                 else if (input == "3" || input == "3)" || input == "soldier")
                 {
                     //flavour text
+                    WriteColor($"     Indeed, you’ve got an air of danger around you, like you’ve escaped from death by" +
+                        $"\nthe skin of your teeth a couple times, and not thanks to sheer luck. It’s a tough life" +
+                        $"\nout on the [battlefield], no two opinions about that. Under whose banner did you serve?" +
+                        $"\n[The Old Lord’s], perhaps? Or the [warlords of the West]? ", ConsoleColor.Yellow);
+                    WriteColor($"The [mercenaries] are undoubtedly those that interest me the most, though. Fighting for" +
+                        $"the one with deepest pockets.\nIt can be perplexing to think that a man is able go into the field" +
+                        $"\nand risk his very being for money. But that makes the feasts afterwards even better, doesn’t it?", ConsoleColor.Yellow);
+                    WriteColor($"\n   Anyway, did you specify in any weapon, or are you a jack of all trades? Sometimes" +
+                        $"\neven a simple dagger might be enough to end a rival mercenary. But those monsters? I’ve seen" +
+                        $"\nsome of them withstand quite a beating like it’s nothing. I’d bet you know a lot more about that than me.", ConsoleColor.Yellow);
+                    Console.WriteLine();
+                    Console.WriteLine("\nThe years spent in training around war camps, coupled with the wealth of combat" +
+                        "\nexperience, make you agile and quite strong, however you definitely didn’t have a chance to" +
+                        "\nindulge in the mysteries of scrolls and parchments:");
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("+3 Strenght");
+                    Console.WriteLine("+3 Agility");
+                    WriteColor("[-3 Intellect]", ConsoleColor.Red);
+                    Console.ResetColor();
+                    Console.WriteLine();
+                    Console.WriteLine("The soldier enables the basic classes:");
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("1) Warrior");
+                    Console.WriteLine("2) Rogue");
+                    Console.WriteLine("3) Healer");
+                    Console.ResetColor();
+                    Console.WriteLine("and the special classes:");
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.WriteLine("4) Battlemaster");
+                    Console.WriteLine("5) Monstrocity Hunter");
+                    Console.ResetColor();
                     Console.WriteLine();
                     Console.WriteLine("Are you satisfied? Y/N");
                     input2 = Console.ReadLine().ToLower();
@@ -415,7 +447,9 @@ namespace TextAdventure
             }
             else if (player.Background.ToLower() == "soldier")
             {
-                //pc
+                player.Atributes["intellect"] -= 3;
+                player.Atributes["strenght"] += 3;
+                player.Atributes["agility"] += 3;
             }
             else if (player.Background.ToLower() == "monastic disciple")
             {
@@ -453,7 +487,7 @@ namespace TextAdventure
                 }
                 Console.WriteLine();
                 Console.WriteLine("Unaugmentable stats:");
-                WriteColor($"[Health] -> [{atributes["health"] + Math.Round(atributes["strenght"] / 10)}] -> health = 10 + str / 10 rounded", ConsoleColor.Red);
+                WriteColor($"[Health] -> [{atributes["health"] + Math.Round(atributes["strenght"] / 10)}] -> [health] = 10 + str / 10 rounded", ConsoleColor.Red);
                 WriteColor($"\n[Dogde] -> [{atributes["dogde"]}] -> [dogde] = 1 + agi / 10 rounded", ConsoleColor.DarkGreen);
                 WriteColor($"\n[Armor] -> [{atributes["armor"] + atributes["dogde"]}] -> [armor] = AV(Armor value from items) + dodge / (armor type eg. Light /1 medium /2 heavy / 4)", ConsoleColor.White);
                 Console.WriteLine();
