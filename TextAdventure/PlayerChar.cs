@@ -24,5 +24,22 @@ namespace TextAdventure
         public Dictionary<string, List<string>> Abilities { get; set; }
         public Dictionary<string, int> Skills { get; set; }
         public List<string> Inventory { get; set; }
+
+        public override string ToString()
+        {
+            Console.Clear();
+            return $"Name: {Name}\nClass: {Klass}\nBackground: {Background}\nAtributes:" +
+                $"\nHealth -> {Atributes["health"]}" +
+                $"\nStrenght -> {Atributes["strenght"]}" +
+                $"\nAgility -> {Atributes["agility"]}" +
+                $"\nIntellect -> {Atributes["intellect"]}" +
+                $"\n\nInventory: \n{string.Join(Environment.NewLine, Inventory)}";
+        }
+    }
+    class Skill
+    {
+        public string KlassReq { get; set; }
+        public string Name { get; set; }
+        public string Effect { get; set; }
     }
 }

@@ -26,7 +26,7 @@ namespace TextAdventure
 
             //This will be the player character for later on
             PlayerChar player = CharacterCreator();
-
+            Console.WriteLine(player.ToString());
         }
 
         //Overall char creation method returns PlayerChar class
@@ -177,7 +177,7 @@ namespace TextAdventure
                         $"\nthe skin of your teeth a couple times, and not thanks to sheer luck. It’s a tough life" +
                         $"\nout on the [battlefield], no two opinions about that. Under whose banner did you serve?" +
                         $"\n[The Old Lord’s], perhaps? Or the [warlords of the West]? ", ConsoleColor.Yellow);
-                    WriteColor($"The [mercenaries] are undoubtedly those that interest me the most, though. Fighting for" +
+                    WriteColor($"The [mercenaries] are undoubtedly\nthose that interest me the most, though. Fighting for" +
                         $"the one with deepest pockets.\nIt can be perplexing to think that a man is able go into the field" +
                         $"\nand risk his very being for money. But that makes the feasts afterwards even better, doesn’t it?", ConsoleColor.Yellow);
                     WriteColor($"\n   Anyway, did you specify in any weapon, or are you a jack of all trades? Sometimes" +
@@ -270,8 +270,6 @@ namespace TextAdventure
                 Console.Clear();
                 //Console.WriteLine();
                 //Console.WriteLine("What did you do before coming here");
-                //Just put them somewhere here. Make sure to check the way they look first tho
-                //warrior klass 
                 //Console.WriteLine();
                 //Console.WriteLine("A) Were you a mercenery for hire.");
                 //Console.WriteLine();
@@ -370,7 +368,7 @@ namespace TextAdventure
                 {
                     //Flavour text
                     Console.WriteLine();
-                    klass = "Mattlemaster";
+                    klass = "Battlemaster";
                 }
                 else if (background == "soldier" && (input == "5)" || input == "5" || input == "monstrosity hunter"))
                 {
@@ -621,8 +619,115 @@ namespace TextAdventure
 
         static PlayerChar SkillDist(PlayerChar player)
         {
+            //Skill addition
+            Dictionary<string, Dictionary<string, int>> skillsMele = new Dictionary<string, Dictionary<string, int>>();
+            skillsMele.Add("Active", new Dictionary<string, int>());
+            skillsMele["Active"].Add("Lunge", 0);
+            //Passive skills
+            skillsMele.Add("Passive", new Dictionary<string, int>());
+            skillsMele["Passive"].Add("Long Blade", 0);
+            skillsMele["Passive"].Add("Short Blade", 0);
+            skillsMele["Passive"].Add("Bow", 0);
+            skillsMele["Passive"].Add("Blunt", 0);
+            skillsMele["Passive"].Add("Light Armor", 0);
+            skillsMele["Passive"].Add("Medium Armor", 0);
+            skillsMele["Passive"].Add("Heavy Armor", 0);
 
+            //Spells
+            //End
 
+            //Points to spend
+            int points = 5;
+            int n = 1;
+            while (points > 0)
+            {
+                //Introduction
+                Console.Clear();
+                Console.WriteLine("         Place Holder            ");
+                WriteColor($"\n[{player.Name}]'s Class: [{player.Klass}]", ConsoleColor.Green);
+                WriteColor($"\nAtributes: " +
+                    $"\n[Health - {player.Atributes["health"]}]" +
+                    $"\n[Strenght - {player.Atributes["strenght"]}]" +
+                    $"\n[Agility - {player.Atributes["agility"]}]" +
+                    $"\n[Intellect - {player.Atributes["intellect"]}]", ConsoleColor.Cyan);
+                Console.WriteLine();
+                Console.WriteLine("Skills:");
+
+                foreach (var category in skillsMele)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine($"{category.Key}:");
+                    foreach (var skill in category.Value)
+                    {
+                        Console.WriteLine($"{n}) {skill.Key} -> {skill.Value}lv");
+                        n++;
+                    }
+                    n = 1;
+                }
+                Console.WriteLine();
+                Console.WriteLine($"Points to add: {points}");
+                Console.WriteLine();
+                Console.WriteLine("Command: add/remove");
+                string[] input = Console.ReadLine()
+                    .Split(", ", StringSplitOptions.RemoveEmptyEntries);
+                if (input[0] == "add")
+                {
+                    Console.WriteLine("Command: Type(Active/Passive), Skillname, amount");
+                    input = Console.ReadLine()
+                    .Split(", ", StringSplitOptions.RemoveEmptyEntries);
+                    if (skillsMele.ContainsKey(input[0]))
+                    {
+                        if (skillsMele[input[0]].ContainsKey(input[1]))
+                        {
+                            skillsMele[input[0]][input[1]] += int.Parse(input[2]);
+                            points -= int.Parse(input[2]);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid skillname");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid type");
+                    }
+                }
+                else if (input[0] == "remove")
+                {
+                    Console.WriteLine("Command: Type(Active/Passive), Skillname, amount");
+                    if (skillsMele.ContainsKey(input[0]))
+                    {
+                        if (skillsMele[input[0]].ContainsKey(input[1]))
+                        {
+                            skillsMele[input[0]][input[1]] -= int.Parse(input[2]);
+                            points += int.Parse(input[2]);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid skillname");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid type");
+                    }
+                }
+                else if (input[0] == "back")
+                {
+                    player = AtributeDist(player.Name, player.Background);
+                }
+            }
+
+            foreach (var item in skillsMele)
+            {
+                foreach (var skill in item.Value)
+                {
+                    if (skill.Value > 0)
+                    {
+                        player.Skills.Add(skill.Key, skill.Value);
+                    }
+                }
+            }
             return player;
         }
         //Submethods end
