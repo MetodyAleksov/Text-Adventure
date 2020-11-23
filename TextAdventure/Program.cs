@@ -34,10 +34,31 @@ namespace TextAdventure
         {
             Console.Clear();
             //Place Holders
-            Console.WriteLine("Welcome to Eldere the continent's biggest city, at least as far as you know.");
+            Console.WriteLine("     You open your eyes and are welcomed by the sight of empty," +
+                "\ndarkening skies. The air around is getting colder, but its chilliness isn’t" +
+                "\nwhat woke you up. A song reaches your ears – soft, gentle tune, with a sort" +
+                "\nof grim undertone hidden within the lyrics. The voice behind the melody is" +
+                "\nmelancholic and evokes a fleeting sense of nostalgia within you. Maybe you’ve" +
+                "\nheard this one before, in another time and place.");
+            WriteColor($"     \nYou get up to find that the other people from the" +
+                $"\ncaravan are nowhere to be seen. Only the remains of a long dead" +
+                $"\nfire scar the ground nearby in charcoal black. The road is but" +
+                $"\na faint trace in the dying crimson dusk. Everything else is" +
+                $"\nobscured by the shadows of [the forest], with its tremendous" +
+                $"\ntrees like an army of colossi over your head. ", ConsoleColor.Yellow);
             Console.WriteLine();
-            Console.WriteLine("Did you come here to find wealth or perhaps a meaning to your otherwise meaningless life.");
+            WriteColor("\n      Everything else is obscured…" +
+                "\nExcept the [songstress]. She lifts a head of black hair and lets" +
+                "\nthe lyre’s strings ring out and fall silent. A pair of light" +
+                "\neyes meets yours. The features of her pale faces remain calm. ", ConsoleColor.Yellow);
             Console.WriteLine();
+            WriteColor($"\n     “I wondered when you’d wake up,” the woman says," +
+                $"\nher voice the only sound in the clearing, echoing beyond into" +
+                $"\nthe rows of trees. “The others left long ago. But fear not," +
+                $"\nthere’s still plenty of time to reach your destination." +
+                $"\nAlthough that cannot happen if you don’t listen and answer to me.”", ConsoleColor.Yellow);
+            Console.WriteLine("\nYou nod, strangely content with the weirdness of the situation. She clears her throat. ");
+            WriteColor("\n“What is your [name], lone traveler?”", ConsoleColor.Yellow);
 
             //Adding skills and abilities based on the class and atributes
             
@@ -56,7 +77,6 @@ namespace TextAdventure
         static string NameGen()
         {
             //Place holder classes
-            Console.WriteLine("What is your name lonely traveler?");
             string name = Console.ReadLine();
             Console.WriteLine();
 
